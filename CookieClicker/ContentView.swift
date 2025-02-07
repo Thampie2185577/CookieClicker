@@ -5,27 +5,36 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                NavigationView {
-                }.navigationViewStyle(StackNavigationViewStyle()).navigationBarTitle("CookieClicker")
-                Button(
-                    action: {
-                        timesClicked += 1
-                        print(timesClicked)
-                    },
-                    label: {
-                    Image(.cookie).resizable().aspectRatio(contentMode: .fit)
-                    })
-                
-                if(timesClicked == 0){
-                    Text("Click the cookie!").padding(.top, 20)
+            NavigationView {
+                VStack {
+                    NavigationLink(destination: CreditsView()) {
+                        
+                        Text("Credits")
+                    }
+                    Spacer()
+                    Button(
+                        action: {
+                            timesClicked += 1
+                            print(timesClicked)
+                        },
+                        label: {
+                        Image(.cookie).resizable().aspectRatio(contentMode: .fit)
+                        })
+                    
+                    if(timesClicked == 0){
+                        Text("Click the cookie!").padding(.top, 20)
+                    }
+                    else {
+                        Text(String(timesClicked)).padding(.top, 20)
+                    }
+                    Spacer()
+                    
                 }
-                else {
-                    Text(String(timesClicked)).padding(.top, 20)
-                }
-                Spacer()
                 
-            }
+            }.navigationViewStyle(StackNavigationViewStyle()).navigationBarTitle("CookieClicker")
+            
+        
+            
         }.background(Color.gray).ignoresSafeArea()
     }
 }
