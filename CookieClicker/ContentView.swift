@@ -1,41 +1,53 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var timesClicked = 0;
-    
+    @State private var timesClicked = 0;
+    @State private var isShowingsheet = false;
     var body: some View {
+
         ZStack {
             NavigationView {
                 VStack {
-                    NavigationLink(destination: CreditsView()) {
-                        
-                        Text("Credits")
-                    }
                     Spacer()
-                    Button(
-                        action: {
-                            timesClicked += 1
-                            print(timesClicked)
-                        },
-                        label: {
-                        Image(.cookie).resizable().aspectRatio(contentMode: .fit)
-                        })
-                    
+                    cookieButton()
                     if(timesClicked == 0){
                         Text("Click the cookie!").padding(.top, 20)
                     }
                     else {
-                        Text(String(timesClicked)).padding(.top, 20)
+                        Text(String("You clicked the cookie \(timesClicked) times")).padding(.top, 20)
                     }
                     Spacer()
+                    navigationShow()
                     
-                }
+                }.navigationTitle("Cookie Clicker!").sheet(isPresented: $isShowingsheet, content: {StoreView(timesClicked: $timesClicked)})
                 
-            }.navigationViewStyle(StackNavigationViewStyle()).navigationBarTitle("CookieClicker")
+            }.navigationViewStyle(StackNavigationViewStyle())
             
-        
             
-        }.background(Color.gray).ignoresSafeArea()
+        }
+    }
+    
+    func navigationShow() -> some View{
+        return  HStack{
+            NavigationLink(destination: CreditsView()) {
+                Text("Credits")
+            }
+            Spacer()
+            Button("Store", action: {
+                isShowingsheet = true;
+            })
+            
+        }.padding(20)
+    }
+    
+    func cookieButton() -> some View{
+        return Button(
+            action: {
+                timesClicked += 1
+            },
+            label: {
+            Image(.cookie).resizable().aspectRatio(contentMode: .fit)
+            })
     }
 }
 

@@ -11,9 +11,8 @@ struct CreditsView: View {
     var body: some View {
         VStack{
             Spacer()
-            Text("Thampie Anthonyrajah")
-            Text("Thampie Anthonyrajah")
-            Text("Thampie Anthonyrajah")
+            Text("Credits goes to Thampie Anthonyrajah")
+            
             Spacer()
         }
     }
